@@ -1,0 +1,11 @@
+<h1>Failed Jobs <%= "on '#{params[:id]}'" if params[:id] %> <%= "with class '#{params[:class]}'" if params[:class] %></h1>
+
+<p class="sub">Showing <%= failure_start_at %> to <%= failure_end_at %> of <b><%= failure_size %></b> jobs</p>
+
+<ul class="failed">
+  <% @jobs.each do |id, job| %>
+    <%= render :partial => 'failed_job', :locals => {:id => job['id'] || id, :job => job} %>
+  <% end %>
+</ul>
+
+<%= pagination :start => failure_start_at, :total => failure_size unless params[:class] %>
